@@ -90,6 +90,7 @@ variable "ocp_version" {
   EOF
   type        = string
   default     = "4.16.1"
+  # default     = "4.15.20"
 }
 
 variable "vpc_cidr" {

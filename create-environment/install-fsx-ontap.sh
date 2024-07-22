@@ -1,6 +1,7 @@
-echo "===== Set environmetal variables ====="  
+#! /bin/bash
 echo "===== Start time " `date` " =====" 
 
+echo "===== Setting environmetal variables ====="  
 # need to move to the upper directory  to see terraform files
 cd ..
 source set-env-fsx-ontap.sh  
@@ -33,6 +34,13 @@ if [ $RESULT != "0" ]; then
  break
 fi
 
+
+# Need to login before issuing oc commands
+echo "===== login to OCP ====="
+cd ..
+oc login -u admin -p $TF_VAR_admin_password $(terraform output -raw cluster_api_url)
+cd - 
+
 echo "===== Prepare additionhal necessary environment variables ====="
 FSX_ID=$(aws cloudformation describe-stacks \
   --stack-name "${CLUSTER}-FSXONTAP" \
@@ -63,14 +71,14 @@ helm install trident netapp-trident/trident-operator --version $VERSION \
 
 # Wait until all pods get ready.
 RUNNING=0
-READY=5
+READY=4
 MAX_RETRY=35
 COUNTER=20
 
 while [ "$RUNNING" -lt $READY ]
 do
 
-echo "Sleep 10 seconds to check \"oc get pods -n openshift-cnv\""
+echo "Sleep 10 seconds to check \"oc get pods -n trident\""
 sleep 10;
 RUNNING=`oc get pods -n trident | grep "Running" | wc -l`
 
@@ -121,7 +129,3 @@ reclaimPolicy: Retain
 EOF
 
 
-echo "===== check completion using the following commands ======"
-
-oc get pods -n trident 
-oc get tbc -n trident 

@@ -1,3 +1,4 @@
+#! /bin/bash
 cd ..
 echo "===== create base ROSA cluster using terraform ====="
 echo "===== Start time " `date` " ====="
@@ -5,18 +6,20 @@ terraform init
 source set-env-rosa.sh
 terraform plan -out rosa.plan
 terraform apply rosa.plan
+
 echo "====== wait until login is available  =====" 
-RC=0
+RC=1
 ERROR=1
 MAX=60
 COUNTER=0
 
-while [ "$RC" -eq  $ERROR ]
+while [ "$RC" ==  $ERROR ]
 do
 
-echo "Sleep 10 seconds to check \"oc get pods -n openshift-cnv\""
+echo "Sleep 10 seconds and then check \"oc login\" again"
 sleep 10;
-RC=`oc login -u admin -p " $TF_VAR_admin_password " "$(terraform output -raw cluster_api_url) | grep "Unauthorized"  | wc-l`
+RC=`oc login -u admin -p $TF_VAR_admin_password $(terraform output -raw cluster_api_url) | grep "Unauthorized"  | wc -l`
+
 
 let COUNTER++
 

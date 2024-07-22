@@ -8,6 +8,7 @@ export FSX_VPC="$(terraform output -raw vpc_id)"
 export FSX_VPC_CIDR="$(terraform output -raw vpc_cidr)"
 export FSX_ROUTE_TABLES="$(terraform output -json private_route_table_ids | jq -r '. | join(",")')"
 export METAL_AZ=$(terraform output -json private_subnet_azs | jq -r '.[0]')
+export ONTAP_LOGFILE=ontap-install.log
 
 echo "Prepare the following paramaters"
 echo "CLUSTER="$CLUSTER
@@ -18,7 +19,5 @@ echo "FSX_SUBNET2="$FSX_SUBNET2
 echo "FSX_VPC="$FSX_VPC
 echo "FSX_VPC_CIDR="$FSX_VPC_CIDR
 echo "FSX_ROUTE_TABE="$FSX_ROUTE_TABLES
-echo "FSX_ADMIN_PASS="$FSX_ADMIN_PASS
-echo "SVM_ADMIN_PASS="$SVM_ADMIN_PASS
 echo "METAL_AX="$METAL_AZ
 

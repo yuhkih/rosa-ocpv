@@ -1,3 +1,6 @@
+#! /bin/bash
+echo "===== Create Baremetal Node machinepool ====="
+echo "===== This will take about 20 mins ====="
 echo "===== Start time " `date` " =====" 
 echo "create machinepool for Baremetal nodes"
 
@@ -31,3 +34,4 @@ fi
 done
 
 
+echo "===== End time " `date` " =====" 

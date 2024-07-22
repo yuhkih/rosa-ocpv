@@ -1,7 +1,9 @@
+#! /bin/bash
+
+echo "===== Installing OpenShift Vir Operator ====="
 cd ..
 source set-env-rosa.sh
 cd - 
-echo "----- Installing OpenShift Vir Operator -----"
 cat << EOF | oc apply -f -
 apiVersion: v1
 kind: Namespace
@@ -35,8 +37,8 @@ EOF
 # get pods | grep Running | wc -l # =12
 # wait 60
 RUNNING=0
-READY=35
-MAX=35
+READY=11 # 12 pods should be running.
+MAX=60
 COUNTER=0
 
 while [ "$RUNNING" -lt $READY ]
@@ -56,6 +58,10 @@ done
 
 
 oc get pods -n openshift-cnv
+
+# echo "===== exit for debug =====" 
+# exit 
+
 
 echo "=====  Create HyperConverged CRD ====="
 
