@@ -60,13 +60,12 @@ echo "FSX_MGMT="$FSX_MGMT
 echo "FSX_NFS="$FSX_NFS 
 
 
-# it's not good idea to use fixed version. need to fix later
 echo "===== install trident helm chart =====" 
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart 
 helm repo update 
-VERSION=`helm search repo | grep "netapp-trident/trident-operator" | awk '{print $2}'` 
-echo "VERSION="$VERSION
-helm install trident netapp-trident/trident-operator --version $VERSION \
+# VERSION=`helm search repo | grep "netapp-trident/trident-operator" | awk '{print $2}'` 
+# echo "VERSION="$VERSION
+helm install trident netapp-trident/trident-operator \
   --create-namespace --namespace trident 
 
 # Wait until all pods get ready.
