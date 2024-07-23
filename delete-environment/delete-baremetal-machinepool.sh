@@ -6,7 +6,7 @@ cd ..
 source ./set-env-rosa.sh
 cd - 
 
-rosa delete machine-pool virt -c $TF_VAR_cluster_name 
+rosa delete machine-pool virt -c $TF_VAR_cluster_name -y
 
 
 

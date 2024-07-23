@@ -21,6 +21,6 @@ fi
 cd ..
 echo "===== Delete base ROSA cluster using terraform ====="
 echo "===== Start time " `date` " ====="
-terraform destroy
+terraform destroy -auto-approve
 echo "===== End time " `date` " ====="
 cd - 
