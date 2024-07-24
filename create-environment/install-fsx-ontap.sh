@@ -38,6 +38,7 @@ fi
 # Need to login before issuing oc commands
 echo "===== login to OCP ====="
 cd ..
+source set-env-rosa.sh
 oc login -u admin -p $TF_VAR_admin_password $(terraform output -raw cluster_api_url)
 cd - 
 
@@ -72,7 +73,7 @@ helm install trident netapp-trident/trident-operator \
 RUNNING=0
 READY=4
 MAX_RETRY=35
-COUNTER=20
+COUNTER=0
 
 while [ "$RUNNING" -lt $READY ]
 do
