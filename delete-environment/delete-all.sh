@@ -12,10 +12,18 @@ echo "===== 2. Delete Baremetal Worker Node ====="
 echo "==========================================="
 ./delete-baremetal-machinepool.sh
 
+if [ $? -ne  0 ]; then
+        exit
+fi
+
 echo "==========================================="
 echo "===== 3. Delete FSx for NetApp ONTAP  ====="
 echo "==========================================="
 ./delete-fsx-ontap.sh
+
+if [ $? -ne  0 ]; then
+        exit
+fi
 
 echo "==========================================="
 echo "===== 4. Delete ROSA HCP Clsuter      ====="

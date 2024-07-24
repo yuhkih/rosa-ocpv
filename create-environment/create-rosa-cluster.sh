@@ -7,6 +7,16 @@ source set-env-rosa.sh
 terraform plan -out rosa.plan
 terraform apply rosa.plan
 
+if [ $? -ne  0 ]; then
+	echo "===== terraform error ====="
+	echo "Exit due to  terraform error"
+	echo "Check if you already..."
+        echo " 1. Eenabled  HCP on AWS console "
+        echo " 2. Link the AWS account to Red Hat account" 
+	echo " 3. rosa login --token=......"
+	exit 1
+fi
+
 echo "====== wait until login is available  =====" 
 RC=1
 ERROR=1
