@@ -1,7 +1,84 @@
-# 1. Preparation  
-
 With this repository, you can create OpenShift Virtuatlization test environment with a few shell scripts.
 
+# 1. Preparation  
+
+## 1.1 CLI
+
+You need to install the following command line tools.
+
+### 1.1.1 aws
+Install aws CLI from here and configure it.
+
+```
+aws --version
+```
+
+### 1.1.2 git
+
+Install git from here.
+
+```
+git version
+```
+
+### 1.1.3 terraform
+
+Install terraform from here.
+
+```
+terraform -v
+```
+
+### 1.1.4 rosa / oc 
+
+Download rosa command
+
+```
+curl -LO https://mirror.openshift.com/pub/openshift-v4/clients/rosa/latest/rosa-linux.tar.gz
+```
+```
+tar -zxf rosa-linux.tar.gz 
+```
+```
+sudo mv ./rosa /usr/local/bin/
+```
+
+```
+rosa download oc
+```
+
+```
+tar -xzf openshift-client-linux.tar.gz 
+```
+
+```
+sudo mv ./oc /usr/local/bin
+```
+
+```
+sudo mv ./kubectl /usr/local/bin
+```
+
+```
+rosa version
+```
+
+```
+oc version
+```
+
+### 1.1.5 jq 
+
+install jq from here
+
+
+### 1.1.6 helm
+
+install helm from here 
+
+```
+helm version
+```
 
 
 ## 1.1 Clone this reposity
