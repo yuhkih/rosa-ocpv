@@ -102,7 +102,7 @@ virtctl version
 watch oc get virtualmachine my-first-fedora-vm
 ```
 
-Login virtual machine
+## 3.3 Login virtual machine
 
 ```
 virtctl ssh fedora@my-first-fedora-vm -i ~/.ssh/id_vm_rsa
