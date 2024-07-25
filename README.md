@@ -67,9 +67,12 @@ sudo mv ./oc /usr/local/bin
 sudo mv ./kubectl /usr/local/bin
 ```
 
+Check if rosa command is properly installed
+
 ```
 rosa version
 ```
+Check if oc command is properly installed
 
 ```
 oc version
