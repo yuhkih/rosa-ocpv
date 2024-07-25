@@ -163,11 +163,11 @@ Baremetal EC2 is expensive. So, I put this procedure at the end of the whole pro
 
 Move to directory where VM creation scripts are placed.
 
-## 3.1 Download virtctl
-
 ```
 cd $BASE_DIR/rosa-ocpv/test-virtual-machine
 ```
+
+## 3.1 Download virtctl
 
 Log in OpenShift web console to download `virtctl` command. You can find the console url with the following shell.
 
