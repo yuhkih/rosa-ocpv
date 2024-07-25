@@ -7,7 +7,13 @@ With this repository, you can create OpenShift Virtuatlization test environment 
 You need to install the following command line tools.
 
 ### 1.1.1 aws
-Install aws CLI from here and configure it.
+Install aws CLI from [here](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) and configure it.
+
+```
+aws configure
+```
+
+Check if the command is properly installed
 
 ```
 aws --version
@@ -15,7 +21,9 @@ aws --version
 
 ### 1.1.2 git
 
-Install git from here.
+Install git from [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+
+Check if the command is properly installed
 
 ```
 git version
@@ -23,7 +31,7 @@ git version
 
 ### 1.1.3 terraform
 
-Install terraform from here.
+Install terraform from [here](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli).
 
 ```
 terraform -v
@@ -69,12 +77,12 @@ oc version
 
 ### 1.1.5 jq 
 
-install jq from here
+install jq from [here](https://jqlang.github.io/jq/download/)
 
 
 ### 1.1.6 helm
 
-install helm from here 
+install helm from [here](https://helm.sh/docs/intro/install/) 
 
 ```
 helm version
