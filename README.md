@@ -108,10 +108,11 @@ You need to enable ROSA HCP on AWS console.
 
 # 2 Create Enviroment
 
+Move to directory where creation scripts are placed.
+
 ```
 export BASE_DIR=~
 ```
-
 
 ```
 cd $BASE_DIR/rosa-ocpv/create-environment
@@ -159,6 +160,8 @@ Baremetal EC2 is expensive. So, I put this procedure at the end of the whole pro
 ```
 
 # 3. Play with Virtual Machine
+
+Move to directory where VM creation scripts are placed.
 
 ## 3.1 Download virtctl
 
@@ -211,6 +214,8 @@ oc delete project my-vms
 # 4. Delete environment
 
 ## 4.1 Change directory
+
+Move to directory where delete scripts are placed.
 
 ```
 cd $BASE_DIR/rosa-ocpv/delete-environment
