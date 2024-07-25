@@ -4,7 +4,7 @@ With this repository, you can create OpenShift Virtuatlization test environment 
 
 
 
-# 1.1 Clone this reposity
+## 1.1 Clone this reposity
 
 This repository contains another repository as a submodule. Use `--recusrive` option to clone this repository.
 
@@ -13,7 +13,7 @@ This repository contains another repository as a submodule. Use `--recusrive` op
 git clone --recursive https://github.com/yuhkih/rosa-ocpv.git
 ```
 
-# 1.2 Enable ROSA HCP 
+## 1.2 Enable ROSA HCP 
 
 You need to enable ROSA HCP on AWS console.
 
