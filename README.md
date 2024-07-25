@@ -96,7 +96,7 @@ sudo mv virtctl /usr/local/bin
 virtctl version
 ```
 
-# 3.2 Create a Fedora Virtual Machine
+## 3.2 Create a Fedora Virtual Machine
 
 ```
 watch oc get virtualmachine my-first-fedora-vm
@@ -113,7 +113,7 @@ watch oc get virtualmachine my-first-fedora-vm
 ```
 
 
-# 3.4 Delete VM
+## 3.4 Delete VM
 
 ```
 oc delete vm my-first-fedora-vm
