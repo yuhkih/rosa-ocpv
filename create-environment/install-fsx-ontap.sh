@@ -4,6 +4,7 @@ echo "===== Start time " `date` " ====="
 echo "===== Setting environmetal variables ====="  
 # need to move to the upper directory  to see terraform files
 cd ..
+source set-env-rosa.sh
 source set-env-fsx-ontap.sh  
 source set-env-fsx-password.sh  
 cd - 
