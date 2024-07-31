@@ -1,7 +1,7 @@
 #! /bin/bash
 echo "===== Create Baremetal Node machinepool ====="
 echo "===== This will take about 20 mins ====="
-echo "===== Start time " `date` " =====" 
+echo "===== Start: " `date` " =====" 
 echo "create machinepool for Baremetal nodes"
 
 cd ..
@@ -9,6 +9,8 @@ source set-env-rosa.sh
 source set-env-fsx-ontap.sh
 cd -
 
+
+# create machinepools
 rosa create machine-pool -c $TF_VAR_cluster_name \
    --replicas 2 --availability-zone $METAL_AZ \
    --instance-type m5zn.metal --name virt 
@@ -34,5 +36,7 @@ if [ "$MAX_RETRY" -lt $COUNTER ]; then
 fi
 done
 
+echo "===== Baremetal nodes are successfully added ====="
+rosa list machinepools --cluster $TF_VAR_cluster_name | grep virt  | grep "2/2" 
 
-echo "===== End time " `date` " =====" 
+echo "===== End: " `date` " =====" 

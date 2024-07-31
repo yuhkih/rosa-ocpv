@@ -26,17 +26,17 @@ COUNTER=0
 while [ "$RC" ==  $ERROR ]
 do
 
-echo "Sleep 10 seconds and then check \"oc login\" again"
-sleep 10;
-RC=`oc login -u admin -p $TF_VAR_admin_password $(terraform output -raw cluster_api_url) | grep "Unauthorized"  | wc -l`
+  echo "Sleep 10 seconds and then check \"oc login\" again"
+  sleep 10;
+  RC=`oc login -u admin -p $TF_VAR_admin_password $(terraform output -raw cluster_api_url) | grep "Unauthorized"  | wc -l`
 
 
-let COUNTER++
+  let COUNTER++
 
-if [ "$MAX" -lt $COUNTER ]; then
-echo "===== Time out ====="
-break
-fi
+  if [ "$MAX" -lt $COUNTER ]; then
+    echo "===== Time out ====="
+    break
+  fi
 done
 
 # test loggin 

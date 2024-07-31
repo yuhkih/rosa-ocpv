@@ -1,7 +1,7 @@
 echo "===== Create my-vm  project for VM ======"
 oc new-project my-vms
 echo "===== Create ssh key for VM ======"
-ssh-keygen -f $HOME/.ssh/id_vm_rsa
+ssh-keygen -f $HOME/.ssh/id_vm_rsa -N ""
 echo "===== Create secret for ssh to VM ====="
 oc create secret generic authorized-keys --from-file=ssh-publickey=$HOME/.ssh/id_vm_rsa.pub
 echo "===== Creat VM, my-first-fedora-vm ====="

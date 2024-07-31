@@ -9,6 +9,8 @@ source ./set-env-rosa.sh
 source ./set-env-fsx-ontap.sh
 cd -
 
+echo "============================================================="
+
 
 echo "CLUSTER="$CLUSTER
 echo "FSX_REGION="$FSX_REGION
@@ -20,14 +22,19 @@ FSX_ID=$(aws cloudformation describe-stacks \
 
 echo "FSX_ID="$FSX_ID
 
+
+echo "============================================================="
+
 FSX_VOLUME_IDS=$(aws fsx describe-volumes --region $FSX_REGION --output text --query "Volumes[?FileSystemId=='$FSX_ID' && Name!='SVM1_root'].VolumeId")
 for FSX_VOLUME_ID in $FSX_VOLUME_IDS; do
   aws fsx delete-volume --volume-id $FSX_VOLUME_ID --region $FSX_REGION
 done
 
 echo "FSX_VOLUME_IDS="$FSX_VOLUME_IDS
-if [ "$FSX_VLUME_IDS" == "" ]; then
+if [ "$FSX_VOLUME_IDS" == "" ]; then
   echo "===== FSX vlumes don't exist ====="
+  echo " Someting wrong..."
+  exit 1
 fi
 
 
@@ -40,10 +47,12 @@ COUNTER=0
 while [ "$RETURN" -gt "0" ]
 do
 
-  echo "Sleep 10 seconds to check volume delete completion"
-  sleep 10;
+  echo "Sleep 30 seconds to check volume delete completion"
+  sleep 30;
 
   RETURN=`aws fsx describe-volumes --region $FSX_REGION --output text --query "Volumes[?FileSystemId=='$FSX_ID'  && Name!='SVM1_root'].Name" | wc -l`
+
+  echo "RETURN="$RETURN
 
   let COUNTER++
 
@@ -53,10 +62,26 @@ do
   fi
 done
 
-
+echo "============================================================="
 echo "===== Delete FSx stack using CloudFormation. This would take 30 mins ====="
 echo "===== Delete Start: " `date` " =====" 
-aws cloudformation delete-stack --stack-name "${CLUSTER}-FSXONTAP" --region "${FSX_REGION}"
-aws cloudformation wait stack-delete-complete --stack-name "${CLUSTER}-FSXONTAP" --region "${FSX_REGION}"
+RESULT=`aws cloudformation delete-stack --stack-name "${CLUSTER}-FSXONTAP" --region "${FSX_REGION}" 2>&1 `
+echo "aws cloudformation delete-stack RESULT=" $RESULT " ( expectation is NULL when succeeded ) "
+
+# Wait and check the result (sometimes fail to delete)
+RESULT=`aws cloudformation wait stack-delete-complete --stack-name "${CLUSTER}-FSXONTAP" --region "${FSX_REGION}" 2>&1 | grep "DELETE_FAILED" | wc -l `
+
+echo "aws cloudformation wait stack-delete-complete RESULT=" $RESULT " ( expectation is 0 when succeeded ) "
+
+if [ "$RESULT" -eq 1 ]; then 
+  # echo -e  "\e[35m ===== Initial CloudFromation Stack delete failed. FORCE_DELETE_STACK will be executed ===== \e[m"
+  # echo "===== Force Delete Start: " `date` " ====="
+  # aws cloudformation delete-stack --stack-name "${CLUSTER}-FSXONTAP" --region "${FSX_REGION}" --deletion-mode FORCE_DELETE_STACK
+  # echo "==== Wait until force delete completion  ====="
+  # aws cloudformation wait stack-delete-complete --stack-name "${CLUSTER}-FSXONTAP" --region "${FSX_REGION}"
+  echo -e  "\e[35m ===== There are chances that FSx volume registered after the deletion check. Check the AWS Consoe for FSx  ===== \e[m"
+  exit 1
+fi
+
 echo "===== Delete Complete: " `date` " =====" 
 

@@ -1,0 +1,2 @@
+export CLUSTERID="your cluster id"
+ocm delete cluster $CLUSTERID -p best_effort=true

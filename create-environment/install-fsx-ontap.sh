@@ -1,15 +1,25 @@
 #! /bin/bash
 echo "===== Start time " `date` " =====" 
 
-echo "===== Setting environmetal variables ====="  
+echo "===== Start: Setting environmetal variables ====="  
 # need to move to the upper directory  to see terraform files
 cd ..
 source set-env-rosa.sh
 source set-env-fsx-ontap.sh  
 source set-env-fsx-password.sh  
 cd - 
+echo "===== End: Setting environmetal variables ====="  
 
-echo "create FSx for ONTAP using cloudformation"
+echo -e "\e[32m ===================================================== \e[m" 
+echo -e "\e[32m ===== create FSx for ONTAP using cloudformation ===== \e[m" 
+echo -e "\e[32m ===================================================== \e[m" 
+
+if [ $SVM_ADMIN_PASS == "" ] || [ $FSX_ADMIN_PASS == "" ] ; then
+  echo "===== something is worng with the parameters. exit ====="
+  exit 1
+fi
+
+# Don't catch error here.
 aws cloudformation create-stack \
   --stack-name "${CLUSTER}-FSXONTAP" \
   --template-body file://./rosa-fsx-netapp-ontap/fsx/FSxONTAP.yaml \
@@ -27,14 +37,17 @@ aws cloudformation create-stack \
   --capabilities CAPABILITY_NAMED_IAM 
 
 echo "Wait cloud Formation completion. This would take about 30 mins" 
-RESULT=`aws cloudformation wait stack-create-complete --stack-name "${CLUSTER}-FSXONTAP" --region "${FSX_REGION}" | grep "failure" | wc -l `
+# Usually it contains "failure" in stderr when failed. (or return code 255) 
+RESULT=`aws cloudformation wait stack-create-complete --stack-name "${CLUSTER}-FSXONTAP" --region "${FSX_REGION}" `
+
+if [ $RESULT != 0 ] ; then
+  echo -e "\e[31m aws cloudformation wait stack-create-complete --stack-name "$CLUSTER"-FSXONTAP --region "$FSX_REGION ": RESULT=" $RESULT  " \e[m"
+  echo -e "\e[31m Check the CloudFromation status from AWS Console \e[m" 
+  echo "===== CloudFormation Complete  " `date` " =====" 
+  exit 1 
+fi 
+
 echo "===== CloudFormation Complete  " `date` " =====" 
-
-if [ $RESULT != "0" ]; then
- echo "==== CloudFormation failed ====="
- break
-fi
-
 
 # Need to login before issuing oc commands
 echo "===== login to OCP ====="
@@ -42,6 +55,10 @@ cd ..
 source set-env-rosa.sh
 oc login -u admin -p $TF_VAR_admin_password $(terraform output -raw cluster_api_url)
 cd - 
+
+echo -e "\e[32m ============================== \e[m" 
+echo -e "\e[32m ===== Install CSI driver ===== \e[m" 
+echo -e "\e[32m ============================== \e[m" 
 
 echo "===== Prepare additionhal necessary environment variables ====="
 FSX_ID=$(aws cloudformation describe-stacks \
@@ -60,6 +77,11 @@ FSX_NFS=$(aws fsx describe-storage-virtual-machines \
 echo "FSX_ID="$FSX_ID 
 echo "FSX_MGMT="$FSX_MGMT 
 echo "FSX_NFS="$FSX_NFS 
+
+if [ $FSX_ID == "" ] || [ $FSX_MGMT == "" ] || [ $FSX_NFS == "" ] ; then
+  echo -e  "\e[31m ===== something is worng with the parameters. exit ===== \e[m"
+  exit 1
+fi 
 
 
 echo "===== install trident helm chart =====" 

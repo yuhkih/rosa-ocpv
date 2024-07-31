@@ -1,14 +1,14 @@
 #! /bin/bash
 
 
-echo "======" date "=====" 
+echo "======" `date` "=====" 
 echo "====== wait until VM is available  ====="
-RC=1
+RC=0
 RUNNING=1
-MAX=60
+MAX=100
 COUNTER=0
 
-while [ "$RC" !=  $RUNNING ]
+while [ "$RC" -ne  $RUNNING ]
 do
 
 RC=`oc get virtualmachine my-first-fedora-vm | grep "Running"  | wc -l`
@@ -24,3 +24,14 @@ echo "===== Time out ====="
 break
 fi
 done
+
+echo "===== Summary ====="
+oc get virtualmachine -n my-vms
+echo "==================="
+oc get pvc -n my-vms
+echo "==================="
+oc get pv | grep trident
+echo "===================="
+
+echo "======" `date` "====="  
+
