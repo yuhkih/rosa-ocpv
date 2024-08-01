@@ -1,154 +1,109 @@
-variable "private" {
-  description = "Set to true to provision a private cluster, which restricts access from the public internet."
+#
+# Copyright (c) 2023 Red Hat, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+variable "openshift_version" {
+  type        = string
+  default     = "4.16.3"
+  description = "Desired version of OpenShift for the cluster, for example '4.14.20'. If version is greater than the currently running version, an upgrade will be scheduled."
+}
+
+variable "create_vpc" {
   type        = bool
-  default     = false
+  default     = true
+  description = "If you would like to create a new VPC, set this value to 'true'. If you do not want to create a new VPC, set this value to 'false'."
 }
 
-variable "bastion_public_ssh_key" {
-  description = <<EOF
-  Location to an SSH public key file on the local system which is used to provide connectivity to the bastion host
-  when the 'private' variable is set to 'true'.
-  EOF
+# ROSA Cluster info
+variable "cluster_name" {
+  default     = null
   type        = string
-  default     = "~/.ssh/id_rsa.pub"
+  description = "The name of the ROSA cluster to create"
 }
 
-variable "region" {
-  description = "The AWS region to provision a ROSA cluster and required components into."
-  type        = string
-  default     = "ap-northeast-1"
+variable "additional_tags" {
+  default = {
+    Terraform   = "true"
+    Environment = "dev"
+  }
+  description = "Additional AWS resource tags"
+  type        = map(string)
 }
 
 variable "multi_az" {
-  description = <<EOF
-  Configure the cluster to use a highly available, multi availability zone configuration.  It should be noted that use
-  of the 'multi_az' variable may affect minimum requirements for 'replicas' and may restrict regions that do not have 
-  three availability zones.
-  EOF
   type        = bool
-  default     = true 
+  description = "Multi AZ Cluster for High Availability"
+  default     = false 
 }
 
-variable "hosted_control_plane" {
-  description = "Provision a ROSA cluster using a Hosted Control Plane."
+variable "worker_node_replicas" {
+  default     = 2
+  description = "Number of worker nodes to provision. Single zone clusters need at least 2 nodes, multizone clusters need at least 3 nodes"
+  type        = number
+}
+
+variable "aws_subnet_ids" {
+  type        = list(any)
+  description = "A list of either the public or public + private subnet IDs to use for the cluster blocks to use for the cluster"
+  default     = ["subnet-01234567890abcdef", "subnet-01234567890abcdef", "subnet-01234567890abcdef"]
+}
+
+variable "private_cluster" {
   type        = bool
-  default     = true 
+  default     = false
+  description = "If you want to create a private cluster, set this value to 'true'. If you want a publicly available cluster, set this value to 'false'."
 }
 
-variable "autoscaling" {
-  description = <<EOF
-  Enable autoscaling for the default machine pool, this is ignored for HCP clusters as autoscaling is not supported
-  for Hosted Control Plane clusters at this time.
+#VPC Info
+variable "vpc_name" {
+  type        = string
+  description = "VPC Name"
+  default     = "tf-qs-vpc"
+}
 
-  WARN: this variable is deprecated.  Simply setting 'max_replicas' will enable autoscaling.  This will be removed 
-  in a future version of this module.
-  EOF
+variable "vpc_cidr_block" {
+  type        = string
+  description = "value of the CIDR block to use for the VPC"
+  default     = "10.0.0.0/16"
+}
+
+variable "private_subnet_cidrs" {
+  type        = list(any)
+  description = "The CIDR blocks to use for the private subnets"
+  default     = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+}
+
+variable "public_subnet_cidrs" {
+  type        = list(any)
+  description = "The CIDR blocks to use for the public subnets"
+  default     = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
+}
+
+variable "single_nat_gateway" {
   type        = bool
-  nullable    = true
-  default     = null
+  description = "Single NAT or per NAT for subnet"
+  default     = false
 }
 
-variable "replicas" {
-  description = <<EOF
-  Minimum number of replicas for the default machine pool.  If unset, a default value is configured based on the 
-  'multi_az' value.
-  EOF
-  type        = number
-  nullable    = true
-  default     = null
+#AWS Info
+variable "aws_region" {
+  type    = string
+  default = "ap-northeast-1"
 }
 
-variable "max_replicas" {
-  description = <<EOF
-  Maximum number of replicas for the default machine pool.  If set, autoscaling is enabled for classic clusters.  
-  Autoscaling is unsupported via Terraform for HCP clusters, so this value is always ignored when 'hosted_control_plane'
-  is set to 'true'.  This value must be equal to or higher than the 'replicas' value if set.
-  EOF
-  type        = number
-  nullable    = true
-  default     = null
-}
-
-variable "token" {
-  description = <<EOF
-  OCM token used to authenticate against the OpenShift Cluster Manager API.  See
-  https://console.redhat.com/openshift/token/rosa/show to access your token.
-  EOF
-  type        = string
-  sensitive   = true
-}
-
-variable "cluster_name" {
-  description = "The name of the cluster.  This is also used as a prefix to name related components."
-  type        = string
-}
-
-variable "ocp_version" {
-  description = <<EOF
-  The version of OpenShift to use.  You can use the command 'rosa list versions' to see all available OpenShift 
-  versions available to ROSA.
-  EOF
-  type        = string
-  default     = "4.16.1"
-  # default     = "4.15.20"
-}
-
-variable "vpc_cidr" {
-  description = "The CIDR of the VPC that will be created."
-  type        = string
-  default     = "10.10.0.0/16"
-}
-
-variable "subnet_cidr_size" {
-  description = <<EOF
-  The CIDR size of each of the individual subnets that will be created.  Must be within range of the 'vpc_cidr' 
-  variable.
-  EOF
-  type        = number
-  default     = 20
-}
-
-variable "pod_cidr" {
-  description = "The internal pod CIDR network used for assigning IP addresses to pods."
-  type        = string
-  default     = "10.128.0.0/14"
-}
-
-variable "service_cidr" {
-  description = "The internal service CIDR network used for assigning IP addresses to services."
-  type        = string
-  default     = "172.30.0.0/16"
-}
-
-variable "tags" {
-  description = "Tags applied to all objects."
+variable "default_aws_tags" {
   type        = map(string)
+  description = "Default tags for AWS"
   default     = {}
-}
-
-variable "admin_password" {
-  description = <<EOF
-  Password for the 'admin' user. IDP is not created if unspecified.  Password must be 14 characters or more, contain 
-  one uppercase letter and a symbol or number.
-  EOF
-  type        = string
-  sensitive   = true
-}
-
-variable "developer_password" {
-  description = <<EOF
-  Password for the 'developer' user. IDP is not created if unspecified.  Password must be 14 characters or more, contain 
-  one uppercase letter and a symbol or number.
-  EOF
-  type        = string
-  sensitive   = true
-}
-
-variable "compute_machine_type" {
-  description = <<EOF
-  The machine type used by the initial worker nodes, for example, m5.xlarge.  You can use the command 'rosa list 
-  instance-types' to see all available instance types available to ROSA.
-  EOF
-  type        = string
-  default     = "m5.xlarge"
 }
