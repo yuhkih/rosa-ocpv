@@ -235,6 +235,10 @@ You can also operate the virutal machine from OpenShift UI. You can get OpenShif
 ./ocp-show-console-url.sh
 ```
 
+After login to the console, go to "Virtualization" => "Virtual Machine". 
+
+![image](https://github.com/user-attachments/assets/c973ac78-4c27-4f3e-8eb1-1d0f0e4ccc1d)
+
 
 ## 4.5 Delete VM
 
