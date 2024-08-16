@@ -125,6 +125,12 @@ cd $BASE_DIR/rosa-ocpv/create-environment
 
 ## 3.1 Create a ROSA Cluster
 
+logi in to your Red Hat account.
+
+```
+rosa login
+```
+
 Inside the scripts, terraform script is being called.
 
 ```
