@@ -40,7 +40,7 @@ echo "Wait cloud Formation completion. This would take about 30 mins"
 # Usually it contains "failure" in stderr when failed. (or return code 255) 
 RESULT=`aws cloudformation wait stack-create-complete --stack-name "${CLUSTER}-FSXONTAP" --region "${FSX_REGION}" `
 
-if [ $RESULT != 0 ] ; then
+if [[ $RESULT != "" ]] ; then
   echo -e "\e[31m aws cloudformation wait stack-create-complete --stack-name "$CLUSTER"-FSXONTAP --region "$FSX_REGION ": RESULT=" $RESULT  " \e[m"
   echo -e "\e[31m Check the CloudFromation status from AWS Console \e[m" 
   echo "===== CloudFormation Complete  " `date` " =====" 
