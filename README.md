@@ -2,7 +2,7 @@ With this repository, you can create OpenShift Virtuatlization test environment 
 
 # 1. Preparation  
 
-## 1.1 CLI
+## 1.1 Download and setup CLI
 
 You need to install the following command line tools.
 
@@ -103,8 +103,11 @@ git clone --recursive https://github.com/yuhkih/rosa-ocpv.git
 
 ## 1.2 Enable ROSA HCP 
 
-You need to activate ROSA HCP on AWS console and like the AWS account to your Red Hat account. See the official [document](https://docs.openshift.com/rosa/cloud_experts_tutorials/cloud-experts-rosa-hcp-activation-and-account-linking-tutorial.html)
+You need to activate ROSA HCP on AWS console and link the AWS account with your Red Hat account. See the official [document](https://docs.openshift.com/rosa/cloud_experts_tutorials/cloud-experts-rosa-hcp-activation-and-account-linking-tutorial.html)
 
+It's a simple procedure, but I think a lot of people (including me) tend to forget this process when working with a new AWS account. 
+Please make sure you enabled HCP as well as link your AWS account with your Red Hat account.
+You need to create a Red Hat account if you don't have one. Creating a Red Hat account is for free from [Red Hat Customer Portal](https://access.redhat.com/) 
 
 # 2 Create Enviroment
 
