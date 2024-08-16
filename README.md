@@ -92,7 +92,7 @@ helm version
 ```
 
 
-## 1.1 Clone this reposity
+## 1.2 Clone this reposity
 
 This repository contains another repository as a submodule. Use `--recusrive` option to clone this repository.
 
@@ -101,7 +101,7 @@ This repository contains another repository as a submodule. Use `--recusrive` op
 git clone --recursive https://github.com/yuhkih/rosa-ocpv.git
 ```
 
-## 1.2 Enable ROSA HCP and link the AWS account with your Red Hat account
+## 1.3 Enable ROSA HCP and link the AWS account with your Red Hat account
 
 You need to activate ROSA HCP on AWS console and link the AWS account with your Red Hat account. See the official [document](https://docs.openshift.com/rosa/cloud_experts_tutorials/cloud-experts-rosa-hcp-activation-and-account-linking-tutorial.html)
 
