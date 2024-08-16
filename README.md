@@ -131,7 +131,7 @@ logi in to your Red Hat account.
 rosa login
 ```
 
-Inside the scripts, terraform script is being called.
+Inside the scripts, terraform script will be called.
 
 ```
 ./create-rosa-cluster.sh
