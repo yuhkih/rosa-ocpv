@@ -209,6 +209,14 @@ virtctl version
 
 ## 4.2 Create a Fedora Virtual Machine
 
+Create a virtual machine "my-first-fedora-vm"
+
+```
+./create-virtual-machine.sh
+```
+
+Wait for the virtual machine to be ready.
+
 ```
 watch oc get virtualmachine my-first-fedora-vm
 ```
@@ -219,11 +227,6 @@ watch oc get virtualmachine my-first-fedora-vm
 virtctl ssh fedora@my-first-fedora-vm -i ~/.ssh/id_vm_rsa
 ```
 
-```
-watch oc get virtualmachine my-first-fedora-vm
-```
-
-
 ## 4.4 Delete VM
 
 ```
@@ -231,7 +234,7 @@ oc delete vm my-first-fedora-vm
 oc delete project my-vms
 ```
 
-# 5. Clean up 
+# 5. Clean up environment
 
 ## 5.1 Change directory
 
