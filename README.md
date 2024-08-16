@@ -103,7 +103,7 @@ git clone --recursive https://github.com/yuhkih/rosa-ocpv.git
 
 ## 1.2 Enable ROSA HCP 
 
-You need to enable ROSA HCP on AWS console.
+You need to activate ROSA HCP on AWS console and like the AWS account to your Red Hat account. See the official [document](https://docs.openshift.com/rosa/cloud_experts_tutorials/cloud-experts-rosa-hcp-activation-and-account-linking-tutorial.html)
 
 
 # 2 Create Enviroment
