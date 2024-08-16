@@ -92,16 +92,8 @@ helm version
 ```
 
 
-## 1.2 Clone this reposity
 
-This repository contains another repository as a submodule. Use `--recusrive` option to clone this repository.
-
-
-```
-git clone --recursive https://github.com/yuhkih/rosa-ocpv.git
-```
-
-## 1.3 Enable ROSA HCP and link the AWS account with your Red Hat account
+# 2 Enable ROSA HCP and link the AWS account with your Red Hat account
 
 You need to activate ROSA HCP on AWS console and link the AWS account with your Red Hat account. See the official [document](https://docs.openshift.com/rosa/cloud_experts_tutorials/cloud-experts-rosa-hcp-activation-and-account-linking-tutorial.html)
 
@@ -110,7 +102,13 @@ Please make sure not only you enabled HCP but also linked your AWS account with 
 
 You need to create a Red Hat account if you don't have one. Creating a Red Hat account is for free from [Red Hat Customer Portal](https://access.redhat.com/) 
 
-# 2 Create Enviroment
+# 3 Create Enviroment
+
+This repository contains another repository as a submodule. Use `--recusrive` option to clone this repository.
+
+```
+git clone --recursive https://github.com/yuhkih/rosa-ocpv.git
+```
 
 Move to directory where creation scripts are placed.
 
@@ -121,7 +119,8 @@ export BASE_DIR=~
 ```
 cd $BASE_DIR/rosa-ocpv/create-environment
 ```
-## 2.1 Create a ROSA Cluster
+
+## 3.1 Create a ROSA Cluster
 
 Inside the scripts, terraform script is being called.
 
@@ -142,20 +141,20 @@ You can see OpenShift web console url address with the following shell.
 ```
 
 
-## 2.2 Install OpenShift Virtualization Operator
+## 3.2 Install OpenShift Virtualization Operator
 
 ```
 ./install-ocpv-operator.sh
 ```
 
 
-## 2.3 Set up FSX for NetApp ONTAP
+## 3.3 Set up FSX for NetApp ONTAP
 
 ```
 ./install-fsx-ontap.sh
 ```
 
-## 2.4 Add Baremetal Node
+## 3.4 Add Baremetal Node
 
 Baremetal EC2 is expensive. So, I put this procedure at the end of the whole procedure.
 
@@ -163,7 +162,7 @@ Baremetal EC2 is expensive. So, I put this procedure at the end of the whole pro
 ./create-baremetal-machinepool.sh
 ```
 
-# 3. Play with Virtual Machine
+# 4. Play with a Virtual Machine
 
 Move to directory where VM creation scripts are placed.
 
@@ -171,7 +170,7 @@ Move to directory where VM creation scripts are placed.
 cd $BASE_DIR/rosa-ocpv/test-virtual-machine
 ```
 
-## 3.1 Download virtctl
+## 4.1 Download virtctl
 
 Log in OpenShift web console to download `virtctl` command. You can find the console url with the following shell.
 
@@ -191,13 +190,13 @@ sudo mv virtctl /usr/local/bin
 virtctl version
 ```
 
-## 3.2 Create a Fedora Virtual Machine
+## 4.2 Create a Fedora Virtual Machine
 
 ```
 watch oc get virtualmachine my-first-fedora-vm
 ```
 
-## 3.3 Login virtual machine
+## 4.3 Login virtual machine
 
 ```
 virtctl ssh fedora@my-first-fedora-vm -i ~/.ssh/id_vm_rsa
@@ -208,16 +207,16 @@ watch oc get virtualmachine my-first-fedora-vm
 ```
 
 
-## 3.4 Delete VM
+## 4.4 Delete VM
 
 ```
 oc delete vm my-first-fedora-vm
 oc delete project my-vms
 ```
 
-# 4. Delete environment
+# 5. Clean up 
 
-## 4.1 Change directory
+## 5.1 Change directory
 
 Move to directory where delete scripts are placed.
 
@@ -225,19 +224,19 @@ Move to directory where delete scripts are placed.
 cd $BASE_DIR/rosa-ocpv/delete-environment
 ```
 
-## 4.2 Delete baremetal nodes
+## 5.2 Delete baremetal nodes
 
 ```
 ./delete-baremetal-machinepool.sh
 ```
 
-## 4.3 Delete FSx ONTAP
+## 5.3 Delete FSx ONTAP
 
 ```
 ./delete-fsx-ontap.sh 
 ```
 
-## 4.4 Delete ROSA cluster
+## 5.4 Delete ROSA cluster
 
 ```
 ./delete-rosa-cluster.sh
