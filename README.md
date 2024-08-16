@@ -227,7 +227,16 @@ watch oc get virtualmachine my-first-fedora-vm
 virtctl ssh fedora@my-first-fedora-vm -i ~/.ssh/id_vm_rsa
 ```
 
-## 4.4 Delete VM
+## 4.4  Login virtual machine
+
+Play with the virtual machine from OpenShift UI. You can also operate the virutal machine from OpenShift UI. You can get OpenShift console URL with the following shell.
+
+```
+./ocp-show-console-url.sh
+```
+
+
+## 4.5 Delete VM
 
 ```
 oc delete vm my-first-fedora-vm
