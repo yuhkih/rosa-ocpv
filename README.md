@@ -131,6 +131,12 @@ logi in to your Red Hat account.
 rosa login
 ```
 
+Set AWS region where you want to create a ROSA HCP cluster. You can chek AWS region name [here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html)
+
+```
+export TF_VAR_region=ap-southeast-1
+```
+
 Inside the scripts, terraform script will be called.
 
 ```
