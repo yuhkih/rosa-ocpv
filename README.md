@@ -132,6 +132,7 @@ rosa login
 ```
 
 Set AWS region where you want to create a ROSA HCP cluster. You can chek AWS region name [here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
+Please make sure if your region supports `m5zn.metal`.
 
 The default is ap-northeast-1 (Tokyo). If you want to change it to ap-southeast-1 (Singapore), set the region name to TF_VAR_region.
 
