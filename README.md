@@ -179,6 +179,9 @@ Baremetal EC2 is expensive. So, I put this procedure at the end of the whole pro
 ./create-baremetal-machinepool.sh
 ```
 
+This shell tries to create two baremetal nodes in your AWS region. But AWS sometimes takes a long time to deploy two baremetal nodes depending on the region.
+
+
 # 4. Play with a Virtual Machine
 
 Move to directory where VM creation scripts are placed.
