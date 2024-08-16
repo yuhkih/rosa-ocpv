@@ -1,14 +1,14 @@
 #! /bin/bash
 echo "===== Start time " `date` " =====" 
 
-echo "===== Start: Setting environmetal variables ====="  
+echo "===== Start: Setting environmet variables ====="  
 # need to move to the upper directory  to see terraform files
 cd ..
 source set-env-rosa.sh
 source set-env-fsx-ontap.sh  
 source set-env-fsx-password.sh  
 cd - 
-echo "===== End: Setting environmetal variables ====="  
+echo "===== End: Setting environmet variables ====="  
 
 echo -e "\e[32m ===================================================== \e[m" 
 echo -e "\e[32m ===== create FSx for ONTAP using cloudformation ===== \e[m" 
