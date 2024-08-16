@@ -116,7 +116,7 @@ git clone --recursive https://github.com/yuhkih/rosa-ocpv.git
 Move to directory where creation scripts are placed.
 
 ```
-export BASE_DIR=~
+export BASE_DIR=`pwd`
 ```
 
 ```
