@@ -227,9 +227,9 @@ watch oc get virtualmachine my-first-fedora-vm
 virtctl ssh fedora@my-first-fedora-vm -i ~/.ssh/id_vm_rsa
 ```
 
-## 4.4  Login virtual machine
+## 4.4  Operator virtual machine from OpenShift console.
 
-Play with the virtual machine from OpenShift UI. You can also operate the virutal machine from OpenShift UI. You can get OpenShift console URL with the following shell.
+You can also operate the virutal machine from OpenShift UI. You can get OpenShift console URL with the following shell.
 
 ```
 ./ocp-show-console-url.sh
