@@ -139,6 +139,16 @@ The default is ap-northeast-1 (Tokyo). If you want to change it to ap-southeast-
 export TF_VAR_region=ap-southeast-1
 ```
 
+Sample regions:
+
+```
+Asia Pacific (Melbourne) : ap-southeast-4
+Asia Pacific (Mumbai) : ap-south-1
+Asia Pacific (Seoul) : ap-northeast-2
+Asia Pacific (Singapore) : ap-southeast-1
+Asia Pacific (Sydney) : ap-southeast-2
+```
+
 Inside the scripts, terraform script will be called.
 
 ```
@@ -160,12 +170,16 @@ You can see OpenShift web console url address with the following shell.
 
 ## 3.2 Install OpenShift Virtualization Operator
 
+This will install OpenShift Vitualization Operator on OpenShift cluster.
+
 ```
 ./install-ocpv-operator.sh
 ```
 
 
-## 3.3 Set up FSX for NetApp ONTAP
+## 3.3 Set up FSx for NetApp ONTAP
+
+This will create FSx for Net App ONTAP as RWX storage which can be accessed from all OpenShift nodes and then install CSI driver. 
 
 ```
 ./install-fsx-ontap.sh
