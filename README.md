@@ -105,7 +105,8 @@ You need to create a Red Hat account if you don't have one. Creating a Red Hat a
 # 3 Create Enviroment
 
 The scripts included in this repository will create the following environment.
-![image](https://github.com/user-attachments/assets/76cc22bc-0959-430c-8685-828ed6d6bbfc)
+![image](https://github.com/user-attachments/assets/05555e90-9d7a-478b-93ee-5a96a33240ad)
+
 
 This repository contains another repository as a submodule. Use `--recusrive` option to clone this repository.
 
