@@ -101,12 +101,12 @@ This repository contains another repository as a submodule. Use `--recusrive` op
 git clone --recursive https://github.com/yuhkih/rosa-ocpv.git
 ```
 
-## 1.2 Enable ROSA HCP 
+## 1.2 Enable ROSA HCP and link the AWS account with your Red Hat account
 
 You need to activate ROSA HCP on AWS console and link the AWS account with your Red Hat account. See the official [document](https://docs.openshift.com/rosa/cloud_experts_tutorials/cloud-experts-rosa-hcp-activation-and-account-linking-tutorial.html)
 
 It's a simple procedure, but I think a lot of people (including me) tend to forget this process when working with a new AWS account. 
-Please make sure you enabled HCP as well as linked your AWS account with your Red Hat account.
+Please make sure not only you enabled HCP but also linked your AWS account with your Red Hat account.
 
 You need to create a Red Hat account if you don't have one. Creating a Red Hat account is for free from [Red Hat Customer Portal](https://access.redhat.com/) 
 
