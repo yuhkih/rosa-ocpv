@@ -89,7 +89,7 @@ variable "ocp_version" {
   versions available to ROSA.
   EOF
   type        = string
-  default     = "4.16.1"
+  default     = "4.16.4"
   # default     = "4.15.20"
 }
 
