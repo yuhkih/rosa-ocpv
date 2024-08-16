@@ -132,7 +132,6 @@ rosa login
 ```
 
 Set AWS region where you want to create a ROSA HCP cluster. You can chek AWS region name [here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
-Please make sure if your region supports `m5zn.metal`.
 
 The default is ap-northeast-1 (Tokyo). If you want to change it to ap-southeast-1 (Singapore), set the region name to TF_VAR_region.
 
@@ -194,7 +193,7 @@ Baremetal EC2 is expensive. So, I put this procedure at the end of the whole pro
 ./create-baremetal-machinepool.sh
 ```
 
-This shell tries to create two baremetal nodes in your AWS region. But AWS sometimes takes a long time to deploy two baremetal nodes depending on the region.
+This shell tries to create two baremetal nodes(`m5zn.metal`) in your AWS region. But AWS sometimes takes a long time to deploy two baremetal nodes depending on the region.
 
 
 # 4. Play with a Virtual Machine
