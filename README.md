@@ -256,6 +256,7 @@ After login to the console, go to "Virtualization" => "Virtual Machine", you can
 
 ![image](https://github.com/user-attachments/assets/c973ac78-4c27-4f3e-8eb1-1d0f0e4ccc1d)
 
+![image](https://github.com/user-attachments/assets/305b1c31-b75e-4930-b954-d384bbf68a40)
 
 ## 4.5 Delete VM
 
