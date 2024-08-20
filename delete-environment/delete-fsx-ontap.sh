@@ -79,9 +79,10 @@ if [ "$RESULT" -eq 1 ]; then
   # aws cloudformation delete-stack --stack-name "${CLUSTER}-FSXONTAP" --region "${FSX_REGION}" --deletion-mode FORCE_DELETE_STACK
   # echo "==== Wait until force delete completion  ====="
   # aws cloudformation wait stack-delete-complete --stack-name "${CLUSTER}-FSXONTAP" --region "${FSX_REGION}"
-  echo -e  "\e[35m ===== There are chances that FSx volume registered after the deletion check. Check the AWS Consoe for FSx  ===== \e[m"
+  echo -e  "\e[35m ===== There is a good chance that FSx volume was registered just after the deletion check. Check the AWS Console for FSx and delete remaining objects manually.  ===== \e[m"
+  echo -e  "\e[35m ===== Or run delete-fsx-ontap.sh manually again  ===== \e[m"
   exit 1
 fi
 
 echo "===== Delete Complete: " `date` " =====" 
-
+echo "===== Now you can delete ROSA HCP cluster using delete-rosa-cluster.sh =====" 
