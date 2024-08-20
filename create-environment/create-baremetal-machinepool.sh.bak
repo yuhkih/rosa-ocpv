@@ -11,17 +11,14 @@ cd -
 
 
 # create machinepools
- rosa create machine-pool -c $TF_VAR_cluster_name \
-   --replicas 1 --availability-zone $METAL_AZ1 \
-   --instance-type m5zn.metal --name virt1 
+rosa create machine-pool -c $TF_VAR_cluster_name \
+   --replicas 2 --availability-zone $METAL_AZ \
+   --instance-type m5zn.metal --name virt 
 
- rosa create machine-pool -c $TF_VAR_cluster_name \
-   --replicas 1 --availability-zone $METAL_AZ2 \
-   --instance-type m5zn.metal --name virt2 
 
 # Wait until all pods get ready.
 READY=0
-NODE_OK=2
+NODE_OK=1
 MAX_RETRY=90
 COUNTER=0
 
@@ -29,7 +26,7 @@ while [ "$NODE_OK" -ne $READY ]
 do
   echo "Baremetal nodes are not Ready yet. Sleep 60 seconds. then check \"rosa list machinepools\" again"
   sleep 60;
-  READY=`rosa list machinepools --cluster $TF_VAR_cluster_name | grep virt  | grep "1/1" | wc -l`
+  READY=`rosa list machinepools --cluster $TF_VAR_cluster_name | grep virt  | grep "2/2" | wc -l`
 
 let COUNTER++
 
@@ -40,6 +37,6 @@ fi
 done
 
 echo "===== Baremetal nodes are successfully added ====="
-rosa list machinepools --cluster $TF_VAR_cluster_name | grep virt  | grep "1/1" 
+rosa list machinepools --cluster $TF_VAR_cluster_name | grep virt  | grep "2/2" 
 
 echo "===== End: " `date` " =====" 

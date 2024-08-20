@@ -31,10 +31,10 @@ for FSX_VOLUME_ID in $FSX_VOLUME_IDS; do
 done
 
 echo "FSX_VOLUME_IDS="$FSX_VOLUME_IDS
-if [ "$FSX_VOLUME_IDS" == "" ]; then
+if [[ $FSX_VOLUME_IDS == "" ]] ; then
   echo "===== FSX vlumes don't exist ====="
-  echo " Someting wrong..."
-  exit 1
+  echo " Something wrong...but continue"
+  # exit 1
 fi
 
 
