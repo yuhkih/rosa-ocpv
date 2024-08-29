@@ -247,7 +247,7 @@ Wait for the virtual machine to be ready.
 ./watch-vm-ready.sh
 ```
 
-## 4.3 Login virtual machine
+## 4.3 Login the Fedora virtual machine
 
 ```
 virtctl ssh fedora@my-first-fedora-vm -i ~/.ssh/id_vm_rsa
