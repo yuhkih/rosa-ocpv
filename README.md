@@ -274,6 +274,12 @@ oc delete vm my-first-fedora-vm
 oc delete project my-vms
 ```
 
+delete the ssh key from known hosts for the Fedora VM.
+
+```
+ssh-keygen -f $HOME"/.ssh/known_hosts" -R "vmi/my-first-fedora-vm.my-vms"
+```
+
 # 5. Clean up environment
 
 ## 5.1 Change directory
