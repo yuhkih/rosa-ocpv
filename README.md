@@ -1,4 +1,4 @@
-With this repository, you can create OpenShift Virtuatlization test environment with a few shell scripts.
+With this repository, you can create OpenShift Virtualization test environment with a few shell scripts.
 
 # 1. Preparation  
 
@@ -97,12 +97,12 @@ helm version
 
 You need to activate ROSA HCP on AWS console and link the AWS account with your Red Hat account. See the official [document](https://docs.openshift.com/rosa/cloud_experts_tutorials/cloud-experts-rosa-hcp-activation-and-account-linking-tutorial.html)
 
-It's a simple procedure, but I think a lot of people (including me) tend to forget this process when working with a new AWS account. 
-Please make sure not only you enabled HCP but also linked your AWS account with your Red Hat account.
+It's a simple procedure, but I think many people (including me) tend to forget this process when working with a new AWS account. 
+Please make sure you not only enabled HCP but also linked your AWS account with your Red Hat account.
 
 You need to create a Red Hat account if you don't have one. Creating a Red Hat account is for free from [Red Hat Customer Portal](https://access.redhat.com/) 
 
-# 3 Create Enviroment
+# 3 Create Environment
 
 The scripts included in this repository will create the following environment.
 ![image](https://github.com/user-attachments/assets/91421078-8367-4bd8-b0fe-4a557b4208c8)
@@ -113,7 +113,7 @@ This repository contains another repository as a submodule. Use `--recusrive` op
 git clone --recursive https://github.com/yuhkih/rosa-ocpv.git
 ```
 
-Move to directory where creation scripts are placed.
+Move to the directory where creation scripts are placed.
 
 ```
 export BASE_DIR=`pwd`
@@ -125,13 +125,13 @@ cd $BASE_DIR/rosa-ocpv/create-environment
 
 ## 3.1 Create a ROSA Cluster
 
-logi in to your Red Hat account.
+log in to your Red Hat account.
 
 ```
 rosa login
 ```
 
-Set AWS region where you want to create a ROSA HCP cluster. You can chek AWS region name [here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
+Set AWS region where you want to create a ROSA HCP cluster. You can check AWS region name [here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
 
 The default is ap-northeast-1 (Tokyo). If you want to change it to ap-southeast-1 (Singapore), set the region name to TF_VAR_region.
 
@@ -155,7 +155,7 @@ Inside the scripts, terraform script will be called.
 ./create-rosa-cluster.sh
 ```
 
-Check if you can login the ROSA cluster.
+Check if you can log in the ROSA cluster.
 
 ```
 ./ocp-login.sh
@@ -170,7 +170,7 @@ You can see OpenShift web console url address with the following shell.
 
 ## 3.2 Install OpenShift Virtualization Operator
 
-This will install OpenShift Vitualization Operator on OpenShift cluster.
+This will install OpenShift Virtualization Operator on OpenShift cluster.
 
 ```
 ./install-ocpv-operator.sh
@@ -193,12 +193,12 @@ Baremetal EC2 is expensive. So, I put this procedure at the end of the whole pro
 ./create-baremetal-machinepool.sh
 ```
 
-This shell tries to create two baremetal nodes(`m5zn.metal`) in your AWS region. But AWS sometimes takes a long time to deploy two baremetal nodes depending on the region.
+This shell tries to create two bare-metal nodes(`m5zn.metal`) in your AWS region. But AWS sometimes takes a long time to deploy two bare-metal nodes depending on the region.
 
 
 # 4. Play with a Virtual Machine
 
-Move to directory where VM creation scripts are placed.
+Move to the directory where VM creation scripts are placed.
 
 ```
 cd $BASE_DIR/rosa-ocpv/test-virtual-machine
@@ -235,7 +235,7 @@ Create a virtual machine "my-first-fedora-vm"
 Wait for the virtual machine to be ready.
 
 ```
-watch oc get virtualmachine my-first-fedora-vm
+watch oc get virtual machine my-first-fedora-vm
 ```
 
 ## 4.3 Login virtual machine
@@ -246,13 +246,13 @@ virtctl ssh fedora@my-first-fedora-vm -i ~/.ssh/id_vm_rsa
 
 ## 4.4  Operator virtual machine from OpenShift console.
 
-You can also operate the virutal machine from OpenShift UI. You can get OpenShift console URL with the following shell.
+You can also operate the virtual machine from OpenShift UI. You can get OpenShift console URL with the following shell.
 
 ```
 ./ocp-show-console-url.sh
 ```
 
-After login to the console, go to "Virtualization" => "Virtual Machine", you can start, stop or live migrate your virtual machine from there.
+After logging in to the console, go to "Virtualization" => "Virtual Machine", you can start, stop, or live migrate your virtual machine from there.
 
 ![image](https://github.com/user-attachments/assets/c973ac78-4c27-4f3e-8eb1-1d0f0e4ccc1d)
 
@@ -269,13 +269,13 @@ oc delete project my-vms
 
 ## 5.1 Change directory
 
-Move to directory where delete scripts are placed.
+Move to the directory where delete scripts are placed.
 
 ```
 cd $BASE_DIR/rosa-ocpv/delete-environment
 ```
 
-## 5.2 Delete baremetal nodes
+## 5.2 Delete bare-metal nodes
 
 ```
 ./delete-baremetal-machinepool.sh
@@ -292,7 +292,3 @@ cd $BASE_DIR/rosa-ocpv/delete-environment
 ```
 ./delete-rosa-cluster.sh
 ```
-
-
-
-
