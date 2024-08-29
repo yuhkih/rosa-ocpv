@@ -233,7 +233,7 @@ sudo mv virtctl /usr/local/bin
 virtctl version
 ```
 
-## 4.2 Create a Fedora Virtual Machine
+## 4.2 Create a Fedora Virtual Machine (10 mins)
 
 Create a virtual machine "my-first-fedora-vm"
 
