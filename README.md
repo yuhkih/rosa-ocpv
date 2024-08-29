@@ -253,7 +253,7 @@ Wait for the virtual machine to be ready.
 virtctl ssh fedora@my-first-fedora-vm -i ~/.ssh/id_vm_rsa
 ```
 
-## 4.4  Operator virtual machine from OpenShift console.
+## 4.4  Operato virtual machine from OpenShift console.
 
 You can also operate the virtual machine from OpenShift UI. You can get OpenShift console URL with the following shell.
 
