@@ -71,6 +71,7 @@ echo "aws cloudformation delete-stack RESULT=" $RESULT " ( expectation is NULL w
 # Wait and check the result (sometimes fail to delete)
 RESULT=`aws cloudformation wait stack-delete-complete --stack-name "${CLUSTER}-FSXONTAP" --region "${FSX_REGION}" 2>&1 | grep "DELETE_FAILED" | wc -l `
 
+echo "Wait stack delete completion" 
 echo "aws cloudformation wait stack-delete-complete RESULT=" $RESULT " ( expectation is 0 when succeeded ) "
 
 if [ "$RESULT" -eq 1 ]; then 
