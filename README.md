@@ -147,6 +147,7 @@ Asia Pacific (Mumbai) : ap-south-1
 Asia Pacific (Seoul) : ap-northeast-2
 Asia Pacific (Singapore) : ap-southeast-1
 Asia Pacific (Sydney) : ap-southeast-2
+Asia Pacifig (Tokyo) : ap-northeast-1
 ```
 
 Inside the scripts, terraform script will be called.
@@ -213,9 +214,11 @@ Log in OpenShift web console to download `virtctl` command. You can find the con
 ```
 
 After logging in to the console, select "Command Line Tools"
+
 ![image](https://github.com/user-attachments/assets/60e458c8-0b8a-4055-8e2e-bd2a409c5829)
 
 Download `virtclt` tool.
+
 ![image](https://github.com/user-attachments/assets/0067472f-be21-478a-a4c6-98f7baa23cb4)
 
 ```
