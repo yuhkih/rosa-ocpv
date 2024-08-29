@@ -244,7 +244,7 @@ Create a virtual machine "my-first-fedora-vm"
 Wait for the virtual machine to be ready.
 
 ```
-watch oc get virtual machine my-first-fedora-vm
+./watch-vm-ready.sh
 ```
 
 ## 4.3 Login virtual machine
