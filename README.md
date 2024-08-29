@@ -177,7 +177,7 @@ This will install OpenShift Virtualization Operator on OpenShift cluster.
 ```
 
 
-## 3.3 Set up FSx for NetApp ONTAP (30 - 40 mins)
+## 3.3 Set up FSx for NetApp ONTAP (30-40 mins)
 
 This will create FSx for Net App ONTAP as RWX storage which can be accessed from all OpenShift nodes and then install CSI driver. 
 
@@ -185,7 +185,7 @@ This will create FSx for Net App ONTAP as RWX storage which can be accessed from
 ./install-fsx-ontap.sh
 ```
 
-## 3.4 Add Baremetal Node (30-40 mins)
+## 3.4 Add Baremetal Node (20-40 mins)
 
 Baremetal EC2 is expensive. So, I put this procedure at the end of the whole procedure.
 
