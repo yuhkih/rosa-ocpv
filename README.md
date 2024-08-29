@@ -123,7 +123,7 @@ export BASE_DIR=`pwd`
 cd $BASE_DIR/rosa-ocpv/create-environment
 ```
 
-## 3.1 Create a ROSA Cluster
+## 3.1 Create a ROSA Cluster (20-30mins)
 
 log in to your Red Hat account.
 
@@ -168,7 +168,7 @@ You can see OpenShift web console url address with the following shell.
 ```
 
 
-## 3.2 Install OpenShift Virtualization Operator
+## 3.2 Install OpenShift Virtualization Operator (5 mins)
 
 This will install OpenShift Virtualization Operator on OpenShift cluster.
 
@@ -177,7 +177,7 @@ This will install OpenShift Virtualization Operator on OpenShift cluster.
 ```
 
 
-## 3.3 Set up FSx for NetApp ONTAP
+## 3.3 Set up FSx for NetApp ONTAP (30 - 40 mins)
 
 This will create FSx for Net App ONTAP as RWX storage which can be accessed from all OpenShift nodes and then install CSI driver. 
 
@@ -185,7 +185,7 @@ This will create FSx for Net App ONTAP as RWX storage which can be accessed from
 ./install-fsx-ontap.sh
 ```
 
-## 3.4 Add Baremetal Node
+## 3.4 Add Baremetal Node (30-40 mins)
 
 Baremetal EC2 is expensive. So, I put this procedure at the end of the whole procedure.
 
