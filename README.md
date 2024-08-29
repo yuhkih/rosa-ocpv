@@ -185,7 +185,7 @@ This will create FSx for Net App ONTAP as RWX storage which can be accessed from
 ./install-fsx-ontap.sh
 ```
 
-## 3.4 Add Baremetal Node (20-40 mins)
+## 3.4 Add two Baremetal Nodes (20-30 mins)
 
 Baremetal EC2 is expensive. So, I put this procedure at the end of the whole procedure.
 
