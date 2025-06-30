@@ -11,4 +11,4 @@ echo "TF_VAR_cluster_name="$TF_VAR_cluster_name
 echo "TF_VAR_admin_password="$TF_VAR_admin_password
 echo "TF_VAR_developer_password="$TF_VAR_developer_password
 echo "CLUSTER="$CLUSTER
-echo "TF_VAR_region="$TF_VAR_region
+echo "TF_VAR_region="$TF_VAR_region "   You can override default ap-northeast-1 with this environment value"
