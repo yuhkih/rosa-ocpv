@@ -4,6 +4,7 @@ variable "cluster_name" {
   default     = "dscott"
 }
 
+
 # TODO: no validation on this input currently
 variable "network" {
   description = "Cluster networking variables"

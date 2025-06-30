@@ -4,6 +4,8 @@ echo "===== Create ssh key for VM ======"
 ssh-keygen -f $HOME/.ssh/id_vm_rsa -N ""
 echo "===== Create secret for ssh to VM ====="
 oc create secret generic authorized-keys --from-file=ssh-publickey=$HOME/.ssh/id_vm_rsa.pub
+echo "Sleep 10 seconds and then check again"
+sleep 10;
 echo "===== Creat VM, my-first-fedora-vm ====="
 
 cat << EOF | oc apply -f -
