@@ -101,17 +101,21 @@ COUNTER=0
 while [ "$RUNNING" -lt $READY ]
 do
 
-echo "Sleep 10 seconds to check \"oc get pods -n trident\""
+echo "Sleep for 10 seconds before checking \"oc get pods -n trident\""
 sleep 10;
 RUNNING=`oc get pods -n trident | grep "Running" | wc -l`
 
 let COUNTER++
 
 if [ "$MAX_RETRY" -lt $COUNTER ]; then
-echo "===== Time out ====="
+echo -e "\e[31m===== Trident installation Time out =====\e[0m"
+helm list -n trident
 break
 fi
 done
+
+echo "===== helm list -n trident   =====" 
+helm list -n trident
 
 echo "===== Create secret for trident  =====" 
 oc create secret generic backend-fsx-ontap-nas-secret \

@@ -1,7 +1,7 @@
 #! /bin/bash
 cd ..
 echo "===== create base ROSA cluster using terraform ====="
-echo "===== Start time " `date` " ====="
+echo -e  "\e[32m===== Start time " `date` " =====\e[0m"
 terraform init
 source set-env-rosa.sh
 terraform plan -out rosa.plan
@@ -26,7 +26,7 @@ COUNTER=0
 while [ "$RC" ==  $ERROR ]
 do
 
-  echo "Sleep 10 seconds and then check \"oc login\" again"
+  echo "Sleep for 10 seconds before checking\"oc login\" again"
   sleep 10;
   RC=`oc login -u admin -p $TF_VAR_admin_password $(terraform output -raw cluster_api_url) | grep "Unauthorized"  | wc -l`
 
@@ -42,11 +42,11 @@ done
 # test loggin 
 oc login -u admin -p $TF_VAR_admin_password $(terraform output -raw cluster_api_url)
 
-echo "====== you can login ROSA with the follwoing comman =====" 
+echo -e "\e[32m====== you can login ROSA with the follwoing comman =====\e[0m" 
 echo "oc login -u admin -p " $TF_VAR_admin_password " "$(terraform output -raw cluster_api_url)
-echo "===== End time " `date` " ====="
+echo -e "\e[32m===== End time " `date` " =====\e[0m"
 
-echo "===== resize workers-2 machinepool to zero to reduce cost ====="
+echo -e "\e[32m===== resizing workers-2 machinepool to zero to reduce cost =====\e[0m"
 rosa edit machinepool workers-2 -c $TF_VAR_cluster_name --replicas=0
 
 

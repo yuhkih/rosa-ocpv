@@ -1,7 +1,7 @@
 #! /bin/bash
 echo "===== Create Baremetal Node machinepool ====="
 echo "===== This will take about 20 mins ====="
-echo "===== Start: " `date` " =====" 
+echo -e "\e[32m====== Start: " `date` " =====\e[0m" 
 echo "create machinepool for Baremetal nodes"
 
 cd ..
@@ -27,7 +27,7 @@ COUNTER=0
 
 while [ "$NODE_OK" -ne $READY ]
 do
-  echo "Baremetal nodes are not Ready yet. Sleep 60 seconds. then check \"rosa list machinepools\" again"
+  echo "Baremetal nodes are not Ready yet. Sleep for 60 seconds before checking \"rosa list machinepools\" again"
   sleep 60;
   READY=`rosa list machinepools --cluster $TF_VAR_cluster_name | grep virt  | grep "1/1" | wc -l`
 
@@ -42,4 +42,4 @@ done
 echo "===== Baremetal nodes are successfully added ====="
 rosa list machinepools --cluster $TF_VAR_cluster_name | grep virt  | grep "1/1" 
 
-echo "===== End: " `date` " =====" 
+echo "\e[32m===== End: " `date` " =====\e[0m" 

@@ -44,7 +44,7 @@ COUNTER=0
 while [ "$RUNNING" -lt $READY ]
 do
 
-echo "Sleep 10 seconds to check \"oc get pods -n openshift-cnv\""
+echo "Sleep for 10 seconds before checking \"oc get pods -n openshift-cnv\""
 sleep 10;
 RUNNING=`oc get pods -n openshift-cnv | grep "Running" | wc -l`
 
@@ -70,15 +70,23 @@ apiVersion: hco.kubevirt.io/v1beta1
 kind: HyperConverged
 metadata:
   name: kubevirt-hyperconverged
-  namespace: openshift-cnv
   annotations:
-    deployOVS: "false"
-  labels:
-    app: kubevirt-hyperconverged
+    deployOVS: 'false'
+  namespace: openshift-cnv
 spec:
-  applicationAwareConfig:
-    allowApplicationAwareClusterResourceQuota: false
-    vmiCalcConfigName: DedicatedVirtualResources
+  enableCommonBootImageImport: true
+  virtualMachineOptions:
+    disableFreePageReporting: false
+    disableSerialConsoleLog: false
+  higherWorkloadDensity:
+    memoryOvercommitPercentage: 100
+  liveMigrationConfig:
+    allowAutoConverge: false
+    allowPostCopy: false
+    completionTimeoutPerGiB: 150
+    parallelMigrationsPerCluster: 5
+    parallelOutboundMigrationsPerNode: 2
+    progressTimeout: 150
   certConfig:
     ca:
       duration: 48h0m0s
@@ -86,40 +94,25 @@ spec:
     server:
       duration: 24h0m0s
       renewBefore: 12h0m0s
-  evictionStrategy: LiveMigrate
+  enableApplicationAwareQuota: false
+  applicationAwareConfig:
+    allowApplicationAwareClusterResourceQuota: false
+    vmiCalcConfigName: DedicatedVirtualResources
   featureGates:
-    alignCPUs: false
-    autoResourceLimits: false
-    deployKubeSecondaryDNS: false
-    deployTektonTaskResources: false
-    deployVmConsoleProxy: false
+    downwardMetrics: false
     disableMDevConfiguration: false
-    enableApplicationAwareQuota: false
-    enableCommonBootImageImport: true
-    enableManagedTenantQuota: false
-    nonRoot: true
+    deployKubeSecondaryDNS: false
+    alignCPUs: false
     persistentReservation: false
-    withHostPassthroughCPU: false
-  infra: {}
-  liveMigrationConfig:
-    allowAutoConverge: false
-    allowPostCopy: false
-    completionTimeoutPerGiB: 800
-    parallelMigrationsPerCluster: 5
-    parallelOutboundMigrationsPerNode: 2
-    progressTimeout: 150
-  resourceRequirements:
-    vmiCPUAllocationRatio: 10
-  uninstallStrategy: BlockUninstallIfWorkloadsExist
-  virtualMachineOptions:
-    disableFreePageReporting: false
-    disableSerialConsoleLog: true
   workloadUpdateStrategy:
     batchEvictionInterval: 1m0s
     batchEvictionSize: 10
     workloadUpdateMethods:
-    - LiveMigrate
-  workloads: {}
+      - LiveMigrate
+  deployVmConsoleProxy: false
+  uninstallStrategy: BlockUninstallIfWorkloadsExist
+  resourceRequirements:
+    vmiCPUAllocationRatio: 10
 EOF
 
 
