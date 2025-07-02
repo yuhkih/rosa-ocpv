@@ -47,7 +47,7 @@ COUNTER=0
 while [ "$RETURN" -gt "0" ]
 do
 
-  echo "Sleep 30 seconds to check volume delete completion"
+  echo "Sleep for 30 seconds before checking volume delete completion"
   sleep 30;
 
   RETURN=`aws fsx describe-volumes --region $FSX_REGION --output text --query "Volumes[?FileSystemId=='$FSX_ID'  && Name!='SVM1_root'].Name" | wc -l`
@@ -80,8 +80,8 @@ if [ "$RESULT" -eq 1 ]; then
   # aws cloudformation delete-stack --stack-name "${CLUSTER}-FSXONTAP" --region "${FSX_REGION}" --deletion-mode FORCE_DELETE_STACK
   # echo "==== Wait until force delete completion  ====="
   # aws cloudformation wait stack-delete-complete --stack-name "${CLUSTER}-FSXONTAP" --region "${FSX_REGION}"
-  echo -e  "\e[35m ===== There is a good chance that the FSx volume for the Fedora VM  was registered just after the deletion check. Check the AWS Console for FSx and delete remaining objects manually.  ===== \e[m"
-  echo -e  "\e[35m ===== Or run delete-fsx-ontap.sh manually again  ===== \e[m"
+  echo -e  "\e[35m ===== There is a good chance that the FSx volume for the Fedora VM  was not registered yet when the deletion check was performed. Check the AWS Console for FSx and delete remaining objects manually.  ===== \e[m"
+  echo -e  "\e[35m ===== Or just run delete-fsx-ontap.sh manually again  ===== \e[m"
   exit 1
 fi
 

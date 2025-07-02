@@ -10,5 +10,3 @@ rosa delete machine-pool virt1 -c $TF_VAR_cluster_name -y
 rosa delete machine-pool virt2 -c $TF_VAR_cluster_name -y
 
 
-
-
